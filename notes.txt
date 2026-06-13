@@ -1,0 +1,124 @@
+Requesting 3 instances in us-east...
+  Creating Linode 1/3...
+  ✅ Success! Assigned IP: 172.104.210.207
+       2892550863
+       ✅ good length
+  Creating Linode 2/3...
+  ✅ Success! Assigned IP: 172.104.210.222
+       2892550878
+       ✅ good length
+  Creating Linode 3/3...
+  ✅ Success! Assigned IP: 172.104.210.125
+       2892550781
+       ✅ good length
+
+Searching Twilio for numbers starting with 289255...
+🎉 FOUND 1 NUMBERS!
+ - +12892553077
+   172.104.219.117
+
+Requesting 8 instances in us-central...
+  Creating Linode 1/8...
+  ✅ Success! Assigned IP: 50.116.30.91
+       846470747
+  Creating Linode 2/8...
+  ✅ Success! Assigned IP: 50.116.30.137
+       846470793
+  Creating Linode 3/8...
+  ✅ Success! Assigned IP: 50.116.30.253
+       846470909
+  Creating Linode 4/8...
+  ✅ Success! Assigned IP: 198.58.116.6
+       3325719558
+       ✅ good length
+  Creating Linode 5/8...
+  ✅ Success! Assigned IP: 198.58.116.116
+       3325719668
+       ✅ good length
+  Creating Linode 6/8...
+  ✅ Success! Assigned IP: 198.58.116.251
+       3325719803
+       ✅ good length
+  Creating Linode 7/8...
+  ✅ Success! Assigned IP: 198.58.116.38
+       3325719590
+       ✅ good length
+  Creating Linode 8/8...
+  ✅ Success! Assigned IP: 198.58.116.60
+       3325719612
+       ✅ good length
+
+Searching Twilio for numbers starting with 332571...
+❌ No numbers available in that block right now.
+
+Requesting 8 instances in us-west...
+  Creating Linode 1/8...
+  ✅ Success! Assigned IP: 50.116.10.133
+       846465669
+  Creating Linode 2/8...
+  ✅ Success! Assigned IP: 50.116.10.135
+       846465671
+  Creating Linode 3/8...
+  ✅ Success! Assigned IP: 50.116.10.140
+       846465676
+  Creating Linode 4/8...
+  ✅ Success! Assigned IP: 50.116.10.143
+       846465679
+  Creating Linode 5/8...
+  ✅ Success! Assigned IP: 50.116.10.145
+       846465681
+  Creating Linode 6/8...
+  ✅ Success! Assigned IP: 50.116.10.149
+       846465685
+  Creating Linode 7/8...
+  ✅ Success! Assigned IP: 50.116.10.156
+       846465692
+  Creating Linode 8/8...
+  ✅ Success! Assigned IP: 50.116.10.157
+       846465693
+
+Requesting 8 instances in eu-central...
+  Creating Linode 1/8...
+  ✅ Success! Assigned IP: 139.162.162.199
+       2342691527
+       ✅ good length
+  Creating Linode 2/8...
+  ✅ Success! Assigned IP: 172.104.230.62
+       2892555838
+       ✅ good length
+  Creating Linode 3/8...
+  ✅ Success! Assigned IP: 172.104.230.75
+       2892555851
+       ✅ good length
+  Creating Linode 4/8...
+  ✅ Success! Assigned IP: 172.105.244.106
+       2892625002
+       ✅ good length
+  Creating Linode 5/8...
+  ✅ Success! Assigned IP: 172.105.244.195
+       2892625091
+       ✅ good length
+  Creating Linode 6/8...
+  ✅ Success! Assigned IP: 139.162.179.110
+       2342695790
+       ✅ good length
+  Creating Linode 7/8...
+  ✅ Success! Assigned IP: 172.105.79.62
+       2892582718
+       ✅ good length
+  Creating Linode 8/8...
+  ✅ Success! Assigned IP: 172.105.79.114
+       2892582770
+       ✅ good length
+
+Searching Twilio for numbers starting with US 234269...
+❌ No numbers available in that block right now.
+
+Searching Twilio for numbers starting with US 289255...
+❌ No numbers available in that block right now.
+
+Searching Twilio for numbers starting with US 289258...
+❌ No numbers available in that block right now.
+
+Searching Twilio for numbers starting with US 289262...
+❌ No numbers available in that block right now.
