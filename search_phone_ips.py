@@ -1,8 +1,8 @@
 #!/usr/bin/env -S uv run
 # /// script
-# requires-python = ">=3.11"
 # dependencies = [
 #     "linode_api4",
+#     "telnyx",
 #     "twilio",
 # ]
 # ///
@@ -12,23 +12,55 @@ import os
 import sys
 import time
 
+sys.stdout.reconfigure(line_buffering=True)
+
 import linode_api4
+import telnyx
 import twilio.rest
 
 import data
 import secret
 
 ALREADY_MINE = {2892553077, 3038809599}
-REGIONS = {"us-east", "us-central", "eu-central"}
+REGIONS = {"us-west"}  # {"us-east", "us-central", "eu-central"}
 TYPE = "g6-nanode-1"
 BATCH = 32  # number of simultaneous linodes
-N = 4  # number of rounds
+ROUNDS = 4  # number of rounds
 SEEN_IPS_FILE = "seen_ips.txt"
-
-sys.stdout.reconfigure(line_buffering=True)
 
 linode_client = linode_api4.LinodeClient(secret.LINODE_PERSONAL_ACCESS_TOKEN)
 twilio_client = twilio.rest.Client(secret.TWILIO_SID, secret.TWILIO_CLIENT_SECRET)
+
+
+def search_twilio(ip):
+    area_code = int(str(ip)[:3])
+    country_code = data.AREA_CODE_COUNTRY_CODES.get(area_code, "US")
+
+    numbers = twilio_client.available_phone_numbers(country_code).local.list(
+        contains=str(ip), sms_enabled=True
+    )
+    print("twilio", numbers)
+
+    return bool(numbers)
+
+
+def buy_twilio(ip):
+    twilio_client.incoming_phone_numbers.create(phone_number=numbers[0].phone_number)
+
+
+def check_telnyx(ip):
+    numbers = telnyx.AvailablePhoneNumber.list(
+        filter={"phone_number": {"contains": target_number}}, limit=1
+    )
+    print("telnyx", numbers)
+
+    if numbers:
+        print(f"XXX FOUND {ip} XXX")
+        linodes.pop()  # remove from deletion list
+        twilio_client.incoming_phone_numbers.create(
+            phone_number=numbers[0].phone_number
+        )
+        raise Exception("XXX FOUND XXX")
 
 
 def run_batch(region, seen_ips):
@@ -52,22 +84,25 @@ def run_batch(region, seen_ips):
                 f"{region} {i:02d}/{BATCH} {ip_str} = {ip:010d} {'seen' if seen else 'new'} ({100 * seen_count // len(linodes)}% seen)"
             )
 
-            if ip >= 200_000_0000:
-                area_code = int(str(ip)[:3])
-                country_code = data.AREA_CODE_COUNTRY_CODES.get(area_code, "US")
+            if ip in ALREADY_MINE:
+                s = f"XXX ALREADY MINE {ip} XXX"
+                print(s)
+                linodes.pop()  # remove from deletion list
+                raise Exception(s)
 
-                numbers = twilio_client.available_phone_numbers(
-                    country_code
-                ).local.list(contains=str(ip), sms_enabled=True)
-                print(numbers)
+            if check_twilio(ip):
+                s = f"XXX FOUND TWILIO {ip} XXX"
+                print(s)
+                linodes.pop()  # remove from deletion list
+                buy_twilio(ip)
+                raise Exception(s)
 
-                if numbers or ip in ALREADY_MINE:
-                    print(f"XXX FOUND {ip} XXX")
-                    linodes.pop()  # remove from deletion list
-                    twilio_client.incoming_phone_numbers.create(
-                        phone_number=numbers[0].phone_number
-                    )
-                    raise Exception("XXX FOUND XXX")
+            if check_telnyx(ip):
+                s = f"XXX FOUND TELNYX {ip} XXX"
+                print(s)
+                linodes.pop()  # remove from deletion list
+                buy_telnyx(ip)
+                raise Exception(s)
 
             seen_ips.add(ip_str)
             time.sleep(0.1)
@@ -89,7 +124,7 @@ def main():
             seen_ips.add(line.strip())
 
     try:
-        for _ in range(N):
+        for _ in range(ROUNDS):
             for region in REGIONS:
                 run_batch(region, seen_ips)
 
